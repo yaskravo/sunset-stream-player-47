@@ -37,6 +37,9 @@ function updateUIText() {
 languageSelect.addEventListener('change', (e) => {
   currentLanguage = e.target.value;
   updateUIText();
+  if (currentChannel && errorDisplay.style.display === 'block') {
+    errorImage.src = errorImages[currentLanguage];
+  }
 });
 
 // Parse M3U content
@@ -64,29 +67,33 @@ function parseM3UContent(content) {
   return channels;
 }
 
+// Reset video display states
+function resetVideoDisplay() {
+  video.style.display = 'none';
+  errorDisplay.style.display = 'none';
+  noVideoMessage.style.display = 'none';
+}
+
 // Handle video errors
 function handleVideoError() {
-  video.style.display = 'none';
-  noVideoMessage.style.display = 'none';
+  console.log('Video error occurred');
+  resetVideoDisplay();
   errorDisplay.style.display = 'block';
   errorImage.src = errorImages[currentLanguage];
 }
 
 // Handle video success
 function handleVideoSuccess() {
+  console.log('Video playing successfully');
+  resetVideoDisplay();
   video.style.display = 'block';
-  errorDisplay.style.display = 'none';
-  noVideoMessage.style.display = 'none';
 }
 
 // Play channel
 function playChannel(channel) {
+  console.log('Playing channel:', channel.name);
   currentChannel = channel;
-  
-  // Reset video display
-  video.style.display = 'none';
-  errorDisplay.style.display = 'none';
-  noVideoMessage.style.display = 'none';
+  resetVideoDisplay();
 
   // Update active channel in grid
   document.querySelectorAll('.channel-button').forEach(btn => {
@@ -97,17 +104,33 @@ function playChannel(channel) {
   });
 
   if (Hls.isSupported()) {
-    hls.loadSource(channel.url);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+    // Destroy existing HLS instance if it exists
+    if (hls) {
+      hls.destroy();
+    }
+
+    // Create new HLS instance
+    const newHls = new Hls();
+    newHls.loadSource(channel.url);
+    newHls.attachMedia(video);
+
+    newHls.on(Hls.Events.MANIFEST_PARSED, () => {
       handleVideoSuccess();
-      video.play().catch(handleVideoError);
+      video.play().catch(() => {
+        console.log('Playback failed, showing error');
+        handleVideoError();
+      });
     });
-    hls.on(Hls.Events.ERROR, (event, data) => {
+
+    newHls.on(Hls.Events.ERROR, (event, data) => {
+      console.log('HLS error:', data);
       if (data.fatal) {
         handleVideoError();
       }
     });
+
+    // Update global hls reference
+    hls = newHls;
   }
 }
 
@@ -151,6 +174,7 @@ loadUrlButton.addEventListener('click', async () => {
       playChannel(channels[0]);
     }
   } catch (error) {
+    console.error('Error loading playlist:', error);
     alert('Error loading playlist');
   }
 });
