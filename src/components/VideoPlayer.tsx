@@ -40,15 +40,7 @@ const VideoPlayer = ({ url }: VideoPlayerProps) => {
   return (
     <div className="aspect-video w-full max-w-4xl mx-auto bg-black rounded-lg overflow-hidden">
       {url ? (
-        hasError ? (
-          <div className="w-full h-full">
-            <img 
-              src={getErrorImage()} 
-              alt="Error" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ) : (
+        <>
           <ReactPlayer
             url={url}
             width="100%"
@@ -62,8 +54,18 @@ const VideoPlayer = ({ url }: VideoPlayerProps) => {
                 forceHLS: true,
               },
             }}
+            style={{ display: hasError ? 'none' : 'block' }}
           />
-        )
+          {hasError && (
+            <div className="w-full h-full">
+              <img 
+                src={getErrorImage()} 
+                alt="Error" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+        </>
       ) : (
         <div className="w-full h-full flex items-center justify-center text-gray-400">
           No video selected
