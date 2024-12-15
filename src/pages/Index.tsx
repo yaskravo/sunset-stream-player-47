@@ -153,10 +153,21 @@ const Index = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setVideoUrl(channel.url)}
-                    className={`p-4 rounded-lg ${videoUrl === channel.url ? 'bg-primary' : 'bg-gray-800'} hover:bg-primary/80 transition-colors`}
+                    className={`p-4 rounded-lg ${
+                      videoUrl === channel.url ? 'bg-primary' : 'bg-gray-800'
+                    } hover:bg-primary/80 transition-colors`}
                   >
                     {channel.logo && (
-                      <img src={channel.logo} alt={channel.name} className="w-16 h-16 mx-auto mb-2 object-contain" />
+                      <div className="w-16 h-16 mx-auto mb-2 overflow-hidden rounded-lg">
+                        <img 
+                          src={channel.logo} 
+                          alt={channel.name} 
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placeholder.svg';
+                          }}
+                        />
+                      </div>
                     )}
                     <p className="text-sm text-center truncate">{channel.name}</p>
                   </motion.button>
