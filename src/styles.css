@@ -57,34 +57,3 @@ video::-webkit-media-controls-enclosure {
     transform: translateY(0);
   }
 }
-
-/* New error styling */
-#errorDisplay {
-  position: relative;
-}
-
-#errorDisplay::before {
-  content: "⚠️";
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  z-index: 10;
-  filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
-}
-
-#errorDisplay::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, transparent 50%, rgba(255, 0, 0, 0.1) 50%);
-  border-top-right-radius: 0.5rem;
-}
-
-#errorDisplay img {
-  border: 2px solid rgba(255, 0, 0, 0.2);
-  border-radius: 0.5rem;
-}
