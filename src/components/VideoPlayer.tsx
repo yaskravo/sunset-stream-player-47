@@ -1,6 +1,6 @@
 import ReactPlayer from 'react-player';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface VideoPlayerProps {
   url: string;
@@ -9,6 +9,11 @@ interface VideoPlayerProps {
 const VideoPlayer = ({ url }: VideoPlayerProps) => {
   const { i18n } = useTranslation();
   const [hasError, setHasError] = useState(false);
+
+  // Reset error state when URL changes
+  useEffect(() => {
+    setHasError(false);
+  }, [url]);
 
   const getErrorImage = () => {
     switch (i18n.language) {
