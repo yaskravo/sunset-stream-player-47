@@ -9,7 +9,7 @@ body {
 }
 
 .channel-button {
-  transition: transform 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .channel-button:hover {
@@ -25,4 +25,35 @@ body {
   height: 64px;
   object-fit: cover;
   border-radius: 0.5rem;
+}
+
+video::-webkit-media-controls {
+  display: flex !important;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+video::-webkit-media-controls-enclosure {
+  width: 100%;
+  border-radius: 0;
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
