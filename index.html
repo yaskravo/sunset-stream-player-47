@@ -3,15 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sunset-stream-player</title>
-    <meta name="description" content="Lovable Generated Project" />
+    <title>Sunset Stream Player</title>
+    <meta name="description" content="Sunset Stream Player" />
     <meta name="author" content="Lovable" />
     <meta property="og:image" content="/og-image.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   </head>
+  <body class="min-h-screen bg-background text-white">
+    <header class="flex justify-between items-center p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div class="flex items-center">
+        <img src="/lovable-uploads/177b836e-40dd-484b-b5fd-c49143ffe74e.png" alt="SUNSET PLAYER" class="h-8">
+      </div>
+      <select id="languageSelect" class="bg-gray-800 text-white px-4 py-2 rounded">
+        <option value="ru">Русский</option>
+        <option value="uk">Українська</option>
+        <option value="kk">Қазақша</option>
+        <option value="uz">O'zbek</option>
+      </select>
+    </header>
 
-  <body>
-    <div id="root"></div>
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <main class="container mx-auto px-4 py-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 id="mainTitle" class="text-2xl font-bold text-center mb-2">Введите ссылку на плейлист или загрузите файл M3U</h1>
+        <p id="attention" class="text-center text-gray-400 mb-8">Внимание! Поддерживаются только плейлисты от Sunset</p>
+
+        <div id="videoPlayer" class="aspect-video w-full max-w-4xl mx-auto bg-black rounded-lg overflow-hidden mb-8">
+          <video id="video" class="w-full h-full hidden"></video>
+          <div id="errorDisplay" class="w-full h-full hidden">
+            <img id="errorImage" src="" alt="Error" class="w-full h-full object-cover">
+          </div>
+          <div id="noVideoMessage" class="w-full h-full flex items-center justify-center text-gray-400">
+            No video selected
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex gap-4">
+            <input type="url" id="playlistUrl" placeholder="https://stream.sunset-media.ru/..." 
+                   class="flex-1 bg-gray-800 text-white px-4 py-2 rounded">
+            <button id="loadUrl" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+              Загрузить плейлист
+            </button>
+          </div>
+
+          <div class="text-center">
+            <input type="file" id="fileUpload" accept=".m3u,.m3u8" class="hidden">
+            <button id="fileUploadBtn" class="w-full max-w-md bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded transition-colors">
+              Выбрать файл
+            </button>
+          </div>
+
+          <div id="channelGrid" class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Channels will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="mt-auto p-4 bg-background">
+      <div class="container mx-auto text-center text-sm text-gray-400">
+        <div class="flex justify-center space-x-4 mb-2">
+          <a href="#" class="hover:text-white">Политика конфиденциальности</a>
+          <a href="#" class="hover:text-white">Условия использования</a>
+        </div>
+        <p>© 2024 Sunset Media. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script src="/src/translations.js"></script>
+    <script src="/src/app.js"></script>
   </body>
 </html>
