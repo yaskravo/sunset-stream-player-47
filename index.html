@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/src/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   </head>
-
   <body class="min-h-screen bg-background text-white">
     <header class="sticky top-0 z-50 flex justify-between items-center p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-gray-800">
       <div class="flex items-center">
@@ -33,26 +32,27 @@
         <div id="videoPlayer" class="aspect-video w-full max-w-4xl mx-auto bg-black rounded-lg overflow-hidden mb-8 shadow-xl">
           <video id="video" class="w-full h-full" controls></video>
           <div id="errorDisplay" class="hidden w-full h-full bg-black">
-            <img src="/lovable-uploads/b3b729bd-552f-4c81-989c-15aaf206860d.png" alt="Error" class="w-full h-full object-contain">
+            <img id="errorImage" src="" alt="Error" class="w-full h-full object-contain">
           </div>
-          <div id="noVideoMessage" class="w-full h-full flex items-center justify-center bg-black">
-            <img src="/lovable-uploads/b3b729bd-552f-4c81-989c-15aaf206860d.png" alt="No video selected" class="w-full h-full object-contain">
+          <div id="noVideoMessage" class="w-full h-full flex items-center justify-center text-gray-400 bg-gray-900">
+            No video selected
           </div>
         </div>
 
         <div class="space-y-4">
-          <div class="flex flex-col gap-4">
+          <div class="flex gap-4">
             <input type="url" id="playlistUrl" placeholder="https://stream.sunset-media.ru/..." 
-                   class="w-full bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors">
-            <div class="flex flex-col sm:flex-row gap-4 w-full">
-              <button id="loadUrl" class="w-full sm:flex-1 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                Загрузить плейлист
-              </button>
-              <input type="file" id="fileUpload" accept=".m3u,.m3u8" class="hidden">
-              <button id="fileUploadBtn" class="w-full sm:flex-1 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                Выбрать файл
-              </button>
-            </div>
+                   class="flex-1 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors">
+            <button id="loadUrl" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              Загрузить плейлист
+            </button>
+          </div>
+
+          <div class="text-center">
+            <input type="file" id="fileUpload" accept=".m3u,.m3u8" class="hidden">
+            <button id="fileUploadBtn" class="w-full max-w-md bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded transition-colors focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              Выбрать файл
+            </button>
           </div>
 
           <div id="channelGrid" class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
