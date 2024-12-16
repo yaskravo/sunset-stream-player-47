@@ -9,7 +9,7 @@
     <meta property="og:image" content="/og-image.png" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/src/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsplayer@latest"></script>
   </head>
   <body class="min-h-screen bg-background text-white">
     <header class="sticky top-0 z-50 flex justify-between items-center p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-gray-800">
@@ -72,7 +72,10 @@
       </div>
     </footer>
 
-    <script src="/src/translations.js"></script>
-    <script src="/src/app.js"></script>
+    <script type="module" src="/src/translations.js"></script>
+    <script type="module" src="/src/player.js"></script>
+    <script type="module" src="/src/playlist.js"></script>
+    <script type="module" src="/src/ui.js"></script>
+    <script type="module" src="/src/app.js"></script>
   </body>
 </html>
